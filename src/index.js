@@ -1,20 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Weather from "./Weather";
-import Search from "./Search";
+import "./index.css";
+// Test import "bootstrap/dist/css/bootstrap.css"; //
+import App from "./App";
 
-import "./App.css";
 
-function App() {
-  return (
-    <div className="Weather">
-      <div className="App">
-        <Search />
-        <Weather />
-      </div>
-    </div>
-  );
-}
+ReactDOM.render(<App />, document.getElementById("root"));
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+
