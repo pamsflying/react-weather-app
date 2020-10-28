@@ -10,7 +10,13 @@ export default function App() {
           <Search />
           <Weather />
         </div>
-      </div>
+ 
+        <footer>
+        <a href="https://github.com/pamsflying/react-weather-app.git" target="_blank" rel="noreferrer"> Open-source code</a> by Pam Miller. Hosted by <a href=
+        "https://peaceful-boyd-df51b2.netlify.app" target="_blank" rel="noreferrer"> Netlify</a>.
+        </footer>
+
+     </div>
     );
   }
 
