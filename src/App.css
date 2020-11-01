@@ -1,32 +1,13 @@
-h1 {
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 50px;
-  margin-bottom: 0;
-  color: #59c6ff;
-  font-family: "Pacifico", cursive;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  color: #6c757d;
-  font-size: 16px;
-  font-weight: 100px;
-  line-height: 20px;
-}
-
-li:first-letter {
-  text-transform: capitalize;
-}
-
 .App {
+  padding: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-image: linear-gradient(-225deg, #fff5d6 0%, #d2efff 100%);
   max-width: 600px;
   margin: 30px auto;
+}
+
+.App footer {
+  font-size: 11px;
+  margin: 10px 0;
 }

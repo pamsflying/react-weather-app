@@ -1,48 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
+import WeatherForecast from "./WeatherForecast";
+import WeatherInfo from "./WeatherInfo";
+import axios from "axios";
 import "./Weather.css";
 
-export default function Weather() {
-  let weatherData = {
-    temperature: "52",
-    date: "Tuesday at 7:00",
-    description: "Cloudy",
-    imgUrl: "https://ssl.gstatic.com/onebox/weather/64/sunny.png",
-    humidity: 80,
-    wind: 10
-  };
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
-  return (
-    <div>
-      <div>
-        <ul>
-          <li>Last updated on: {weatherData.date}</li>
-          <li>{weatherData.description}</li>
-        </ul>
-      </div>
+  function handleResponse(response) {
+    setWeatherData({
+      ready: true,
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      date: new Date(response.data.dt * 1000),
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
+      wind: response.data.wind.speed,
+      city: response.data.name,
+    });
+  }
 
-      <div className="row">
-        <div className="col-6">
-          <div className="clearfix weather-temperature">
-            <div className="float-left">
-              <strong>{weatherData.temperature}</strong>
-              <span className="units">
-                <a href="/">°C</a> | <a href="/">°F</a>
-              </span>
-            </div>
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function updateCity(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+  const apiKey = "1a8d56aa6517b3082b1bfda38d96da23";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(handleResponse);
+}
+
+
+  if (weatherData.ready) {
+    return (
+      <div className="Weather">
+      <form onSubmit={handleSubmit} className="mb-3">
+        <div className="row">
+          <div className="col-8">
+            <input
+              type="search"
+              onChange={updateCity}
+              placeholder="Search for a city.."
+              className="form-control"
+              autoComplete="off"
+            />
           </div>
+
+          <button type="submit" className="btn btn-light mr-1">
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              className="bi bi-search"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+              />
+              <path
+                fillRule="evenodd"
+                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+              />
+            </svg>
+          </button>
+
+          <button className="btn btn-light" type="submit">
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              className="bi bi-cursor-fill"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z"
+              />
+            </svg>
+          </button>
         </div>
-        <div className="col-6">
-          <ul>
-            <li>
-              <strong>Humidity: </strong> {weatherData.humidity}%
-            </li>
-            <li>
-              <strong>Wind: </strong> {weatherData.wind} km/h
-            </li>
-          </ul>
-        </div>
+      </form>
+      <WeatherInfo data={weatherData}/>
+      <WeatherForecast city={weatherData.city} />
       </div>
-      <div className="row weather-forecast"></div>
-    </div>
-  );
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
