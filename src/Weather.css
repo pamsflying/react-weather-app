@@ -8,7 +8,7 @@
   line-height: 50px;
   margin-bottom: 0;
   color: #59c6ff;
-  font-family: "Pacifico";
+  font-family: "Pacifico", cursive;
 }
 
 .Weather ul {
@@ -34,13 +34,24 @@
   color: #59c6ff;
   font-size: 75px;
   font-weight: bold;
-  line-height: 1;
+  line-height: 64px;
+  margin: 0;
+  margin-left: -15px;
+  padding: 0;
 }
 
-.WeatherTemperature .units {
+.WeatherTemperature .unit {
   position: relative;
   font-size: 16px;
   line-height: 1;
-  top: -60px;
+  top: -45px;
+}
 
+.WeatherInfo .wind {
+  margin-left: -15px;
+}
+
+.WeatherInfo .humidity
+{
+  margin-left: -15px;
 }
